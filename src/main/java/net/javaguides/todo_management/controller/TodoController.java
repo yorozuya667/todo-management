@@ -2,6 +2,7 @@ package net.javaguides.todo_management.controller;
 
 import lombok.AllArgsConstructor;
 import net.javaguides.todo_management.dto.TodoDto;
+import net.javaguides.todo_management.entity.Todo;
 import net.javaguides.todo_management.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -45,7 +46,7 @@ public class TodoController {
 
     // Build Update To-do REST API
     @PutMapping("{id}")
-    public ResponseEntity<TodoDto> updateTodo(@RequestBody  TodoDto todoDto, @PathVariable("id") Long todoId) {
+    public ResponseEntity<TodoDto> updateTodo(@RequestBody TodoDto todoDto, @PathVariable("id") Long todoId) {
         TodoDto updatedTodo = todoService.updateTodo(todoDto, todoId);
         return ResponseEntity.ok(updatedTodo);
     }
@@ -57,10 +58,17 @@ public class TodoController {
         return ResponseEntity.ok("Todo deleted successfully!");
     }
 
-    // Build Update To-do REST API
+    // Build Complete To-do REST API
     @PatchMapping("{id}/complete")
     public ResponseEntity<TodoDto> completeTodo(@PathVariable("id") Long todoId) {
         TodoDto updatedTodo = todoService.completeTodo(todoId);
+        return ResponseEntity.ok(updatedTodo);
+    }
+
+    // Build InComplete To-do REST API
+    @PatchMapping("{id}/in-complete")
+    public ResponseEntity<TodoDto> inCompleteTodo(@PathVariable("id") Long todoId) {
+        TodoDto updatedTodo = todoService.inCompleteTodo(todoId);
         return ResponseEntity.ok(updatedTodo);
     }
 }
